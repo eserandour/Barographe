@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////
 /*
-   Barographe (version 2017.10.07)
-   Copyright 2015, 2016, 2017 - Eric Sérandour
+   Barographe (version 2019.06.10)
+   Copyright 2015, 2016, 2017, 2019 - Eric Sérandour
    
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -386,42 +386,42 @@ void afficherBarometre(int adresseI2C)
             GD.Vertex2ii(WIDTH / TAILLE_TAMPON * (i+1), Y_MAX - map(valeur[i+1], VALEUR_MIN, VALEUR_MAX, 0, Y_MAX));
           }
         }      
-        // Affichage du texte et des mesures
+        // Affichage du texte et des mesures (8 pixels par caractère)
         GD.ColorRGB(0x00ff00); // Texte en vert
         GD.cmd_text(20, 25, POLICE_18, OPT_CENTERY, "Altitude station  : ");
-        dtostrf(altitudeReference, 6, 1, nombreFormate);
+        dtostrf(altitudeReference, 4, 0, nombreFormate);
         GD.cmd_text(180, 25, POLICE_18, OPT_CENTERY, nombreFormate);
-        GD.cmd_text(236, 25, POLICE_18, OPT_CENTERY, "m");
+        GD.cmd_text(220, 25, POLICE_18, OPT_CENTERY, "m");
         GD.cmd_text(20, 40, POLICE_18, OPT_CENTERY, "Pression absolue  : ");
-        dtostrf(pressionAbsolue, 6, 1, nombreFormate);
+        dtostrf(round(pressionAbsolue), 4, 0, nombreFormate);
         GD.cmd_text(180, 40, POLICE_18, OPT_CENTERY, nombreFormate);
-        GD.cmd_text(236, 40, POLICE_18, OPT_CENTERY, "hPa");  
+        GD.cmd_text(220, 40, POLICE_18, OPT_CENTERY, "hPa");  
         GD.cmd_text(20, 55, POLICE_18, OPT_CENTERY, "Pression relative : ");
-        dtostrf(pressionRelative, 6, 1, nombreFormate);
+        dtostrf(round(pressionRelative), 4, 0, nombreFormate);
         GD.cmd_text(180, 55, POLICE_18, OPT_CENTERY, nombreFormate);
-        GD.cmd_text(236, 55, POLICE_18, OPT_CENTERY, "hPa");
-        GD.cmd_text(20, 70, POLICE_18, OPT_CENTERY, "Altitude          : ");
-        dtostrf(altitude, 6, 1, nombreFormate);
+        GD.cmd_text(220, 55, POLICE_18, OPT_CENTERY, "hPa");
+        /*GD.cmd_text(20, 70, POLICE_18, OPT_CENTERY, "Altitude          : ");
+        dtostrf(altitude, 4, 0, nombreFormate);
         GD.cmd_text(180, 70, POLICE_18, OPT_CENTERY, nombreFormate);
-        GD.cmd_text(236, 70, POLICE_18, OPT_CENTERY, "m");
+        GD.cmd_text(220, 70, POLICE_18, OPT_CENTERY, "m");*/   
         GD.cmd_text(20, Y_MAX - 55, POLICE_18, OPT_CENTERY, "Pression maximum  : ");
-        dtostrf(pressionMax, 6, 1, nombreFormate);
+        dtostrf(round(pressionMax), 4, 0, nombreFormate);
         GD.cmd_text(180, Y_MAX - 55, POLICE_18, OPT_CENTERY, nombreFormate);
-        GD.cmd_text(236, Y_MAX - 55, POLICE_18, OPT_CENTERY, "hPa"); 
+        GD.cmd_text(220, Y_MAX - 55, POLICE_18, OPT_CENTERY, "hPa"); 
         GD.cmd_text(20, Y_MAX - 40, POLICE_18, OPT_CENTERY, "Pression moyenne  : ");
-        dtostrf(pressionMoy, 6, 1, nombreFormate);
+        dtostrf(round(pressionMoy), 4, 0, nombreFormate);
         GD.cmd_text(180, Y_MAX - 40, POLICE_18, OPT_CENTERY, nombreFormate);
-        GD.cmd_text(236, Y_MAX - 40, POLICE_18, OPT_CENTERY, "hPa");              
+        GD.cmd_text(220, Y_MAX - 40, POLICE_18, OPT_CENTERY, "hPa");              
         GD.cmd_text(20, Y_MAX - 25, POLICE_18, OPT_CENTERY, "Pression minimum  : ");
-        dtostrf(pressionMin, 6, 1, nombreFormate);
+        dtostrf(round(pressionMin), 4, 0, nombreFormate);
         GD.cmd_text(180, Y_MAX - 25, POLICE_18, OPT_CENTERY, nombreFormate);
-        GD.cmd_text(236, Y_MAX - 25, POLICE_18, OPT_CENTERY, "hPa");
+        GD.cmd_text(220, Y_MAX - 25, POLICE_18, OPT_CENTERY, "hPa");
         GD.cmd_text(20, Y_MAX - 70 , POLICE_18, OPT_CENTERY, "Sur 72 heures");  
         // Rond rouge pour indiquer que le tracé rouge concerne la pression relative
         GD.ColorRGB(0xff0000);  
         GD.PointSize(16*5); // 5 pixels  
         GD.Begin(POINTS);
-        GD.Vertex2ii(275,54);
+        GD.Vertex2ii(259,54);
         if (erreur) {
           GD.cmd_text(WIDTH/2, HEIGHT/2, POLICE_18, OPT_CENTER, "ERREUR CARTE SD");
         }
@@ -764,4 +764,3 @@ boolean motDePasse()
     }
   return autorisationEnregistrement;
 }
-
